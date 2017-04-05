@@ -32,6 +32,22 @@
       return $value;
   }
 
+function bubbleSort(&$arr)
+{
+    $num = count($arr); //元素数据个数
+    for($i = 0; $i < $num-1; ++$i)
+    {
+        for($j = 0; $j < $num-1-$i; ++$j)
+        {
+            if($arr[$j] > $arr[$j+1]) {  //如果前面的数大于后面的数，交换位置
+                $temp = $arr[$j];
+                $arr[$j] = $arr[$j+1];
+                $arr[$j+1] = $temp;
+            }
+        }
+    }
+}
+
   /**
    * 优化冒泡排序
    *
