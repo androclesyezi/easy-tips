@@ -1,6 +1,6 @@
 <?php
 $list = array(10,3,5,7,18,11,45,64,74,23,21,6);
-$list = select_sort($list)
+$list = select_sort($list);
 var_dump($list);
 function select_sort($list){
 	$count = count($list);
