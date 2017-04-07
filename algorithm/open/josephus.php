@@ -16,13 +16,15 @@ function king($n,$m){
         if ($i % $m !=0) {
             #如果不是m的倍数，则把猴子返回尾部，否则就抛掉，也就是出列
             array_push($mokey,$head);
+        }else{
+            echo $head;
         }
     }
     // 剩下的最后一个就是大王了
-    return $mokey[0];
+    echo $mokey[0];
 }
 // 测试
-echo king(10,7);
+king(6,3);
 
 // 方案二，使用数学方法解决
 function josephus($n,$m){
@@ -34,4 +36,4 @@ function josephus($n,$m){
     return $r+1;
 }
 // 测试
-print_r(josephus(10,7));
+//print_r(josephus(10,7));

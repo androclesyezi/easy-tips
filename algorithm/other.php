@@ -15,7 +15,7 @@ function binarytodecimalism($str)
   $length = strlen($str)-1;
   $res = 0;
   for ($i=$length; $i >= 0; --$i) {
-    $res += $str[$i]*(2**($length-$i));
+    $res += $str[$i]*(2*($length-$i));
   }
   return $res;
 }

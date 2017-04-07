@@ -21,6 +21,7 @@ class tree{
 		$this->key = $key;
 	}
 
+    //abcdef
 	public function travers_pre_order(){
 		$l = array();
 		$r = array();
@@ -29,11 +30,12 @@ class tree{
 		} 
 		if($this->right){
 			$r = $this->right->travers_pre_order();
-		} 
-
+		}
 		return array_merge(array($this->key),$l,$r);
 	}
 
+
+    //dcbeaf
 	public function travers_in_order(){
 		$l = array();
 		$r = array();
@@ -47,6 +49,8 @@ class tree{
 		return array_merge($l,array($this->key),$r);
 	}
 
+
+    //dcebfa
 	public function travers_post_order(){
 		$l = array();
 		$r = array();
