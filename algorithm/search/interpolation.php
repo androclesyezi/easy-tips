@@ -1,16 +1,17 @@
 <?php
 $data = array(4,6,7,8,14,55,67,145,218,237,284);
 
-$num = binarysearch(4);
+$num = interpolationSearch(284);
 var_dump($num);
-function binarysearch($num){
+function interpolationSearch($num){
 	global $data;
 	$count = count($data);
 	$high = $count-1;
 	$low = 0;
 	
 	while ($high >= $low){
-		$mid  = floor(($high+$low)/2);
+		//$mid  = floor(($high+$low)/2);
+		$mid = floor($low + ($num-$data[$low])*($high - $low)/($data[$high]-$data[$low]));
 		if($num == $data[$mid]){
 			return $mid;
 		}elseif($num > $data[$mid]){

@@ -55,7 +55,6 @@ function radix_lsd(&$value = [])
           }
           continue;
         }
-        $aaa = ((string)$v)[$index];
         if (((string)$v)[$index] === (string)$i) {
           $arr[$i][] = $v;
         }

@@ -55,7 +55,7 @@ class stack{
 	//返回栈顶元素，但是不出栈
 	function end(){
 		//此处代码等你来完善
-		
+		return end ($this->stacklist);
 	}
 	
 	
