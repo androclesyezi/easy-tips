@@ -1,10 +1,12 @@
 <?php
+//二分插入查找
+
 $data = array(4,6,7,8,14,55,67,145,218,237,284);
 
-$num = interpolationSearch(284);
+$num = interpolationSearch($data,284);
 var_dump($num);
-function interpolationSearch($num){
-	global $data;
+function interpolationSearch($data,$num){
+
 	$count = count($data);
 	$high = $count-1;
 	$low = 0;

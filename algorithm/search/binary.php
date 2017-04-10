@@ -1,10 +1,12 @@
 <?php
+//二分查找
+
+
 $data = array(4,6,7,8,14,55,67,145,218,237,284);
 
-$num = binarysearch(4);
+$num = binarySearch(4);
 var_dump($num);
-function binarysearch($num){
-	global $data;
+function binarySearch($data,$num){
 	$count = count($data);
 	$high = $count-1;
 	$low = 0;
@@ -37,6 +39,6 @@ function binaryRecursive(&$arr,$low,$top,$target){
     }
 }
 $arr = array(1,3,9,23,54);
-echo binaryRecursive($arr, 0, sizeof($arr), 9);
+echo binaryRecursive($arr, 0, count($arr), 9);
 
 ?>
