@@ -28,6 +28,7 @@ function getTwoSortedArraySmallK($a, $b, $k)
     return f($a, $m, $b, $n, $k);
 }
 
+//k个最小是按1开始算的，下表为k-1
 function f($a, $m, $b, $n, $k)
 {
     if ($m > $n) {
