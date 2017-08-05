@@ -349,3 +349,76 @@ let "i = i + 1"
 fi
 
 done
+
+#11.遍历目录和子目录的所有文件
+
+function getdir(){
+    for element in `ls $1`
+    do
+        dir_or_file=$1"/"$element
+        if [ -d $dir_or_file ]
+        then
+            getdir $dir_or_file
+        else
+            echo $dir_or_file
+        fi
+    done
+}
+root_dir="/home/test"
+getdir $root_dir
+
+
+
+
+nginx 配制
+
+复制代码 代码如下:
+
+ log_format  main  '$remote_addr - $remote_user [$time_local] $request '
+                      '"$status" $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for" $request_time';
+    access_log  /var/log/nginx/access.log  main buffer=32k;
+
+从上面配置，可以看到：ip在 第一列，页面耗时是在最后一列，中间用空格分隔。 因此在awk 中，分别可以用：$1
+$NF 读取到当前值。 其中NF是常量，代表整个列数。
+下面是分析代码的shell文件，可以存为slow.sh
+复制代码 代码如下:
+
+#!/bin/sh
+export PATH=/usr/bin:/bin:/usr/local/bin:/usr/X11R6/bin;
+export LANG=zh_CN.GB2312;
+function usage()
+{
+   echo "$0 filelog  options";
+   exit 1;
+}
+function slowlog()
+{
+#set -x;
+field=$2;
+files=$1;
+end=2;
+msg="";
+[[ $2 == '1' ]] && field=1&&end=2&&msg="总访问次数统计";
+[[ $2 == '2' ]] && field=3&&end=4&&msg="平均访问时间统计";
+echo -e "\r\n\r\n";
+echo -n "$msg";
+seq -s '#' 30 | sed -e 's/[0-9]*//g';
+awk '{split($7,bbb,"?");arr[bbb[1]]=arr[bbb[1]]+$NF; arr2[bbb[1]]=arr2[bbb[1]]+1; } END{for ( i in arr ) { print i":"arr2[i]":"arr[i]":"arr[i]/arr2[i]}}' $1 | sort  -t: +$field -$end -rn |grep "pages" |head -30 | sed 's/:/\t/g'
+}
+[[ $# < 2 ]] && usage;
+slowlog $1 $2;
+只需要执行：slow.sh 日志文件  1或者2
+1：三十条访问最平凡的页面
+2：三十条访问最耗时的页面
+执行结果如下：
+chmod +x ./slow.sh
+chmod +x slow.sh
+./slow.sh /var/log/nginx/
+./slow.sh /var/log/nginx/access.log 2
+
+平均访问时间统计#############################
+/pages/########1.php        4       120.456 30.114
+/pages/########2.php 1       16.161  16.161
+/pages/########3.php 212     1122.49 5.29475
+/pages/########4.php     6       28.645  4.77417
